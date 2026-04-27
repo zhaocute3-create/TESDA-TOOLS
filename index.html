@@ -1,0 +1,26 @@
+<script type="module">
+import { db } from "./firebase.js";
+import {
+collection, getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+async function loadTools(){
+ let box = document.getElementById("tools");
+ box.innerHTML="";
+
+ let snap = await getDocs(collection(db,"tools"));
+
+ snap.forEach(doc=>{
+  let t = doc.data();
+
+  box.innerHTML += `
+  <div class="card">
+    <img src="${t.image}">
+    <h3>${t.name}</h3>
+    <p>${t.desc}</p>
+  </div>`;
+ });
+}
+
+loadTools();
+</script>
