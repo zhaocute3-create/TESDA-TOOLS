@@ -139,3 +139,17 @@ search.addEventListener("input", () => {
 });
 
 render(tools);
+
+// LOAD
+window.onload = () => {
+  const saved = localStorage.getItem("tools");
+  if (saved) {
+    tools = JSON.parse(saved);
+    render(tools);
+  }
+};
+
+// SAVE EVERY CHANGE
+function autoSave() {
+  localStorage.setItem("tools", JSON.stringify(tools));
+}
