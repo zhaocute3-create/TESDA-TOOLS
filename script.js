@@ -1,101 +1,70 @@
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #020617, #040d1a);
-  color: #e6faff;
-}
+let tools = [
+  {
+    name: "Laser Distance",
+    desc: "Used for measuring long distances accurately",
+    image: "images/laser-distance.jpg"
+  },
+  {
+    name: "Laser Level",
+    desc: "Used for leveling using laser projection",
+    image: "images/laser-level.jpg"
+  },
+  {
+    name: "Hammer",
+    desc: "Used for driving nails",
+    image: "images/hammer.jpg"
+  }
+];
 
-/* HEADER */
-header {
-  text-align: center;
-  padding: 30px 10px;
-  border-bottom: 1px solid rgba(0, 229, 255, 0.2);
-}
+const grid = document.getElementById("grid");
+const search = document.getElementById("search");
 
-header h1 {
-  margin: 0;
-  font-size: 26px;
-  color: #00e5ff;
-  text-shadow: 0 0 10px #00e5ff;
-}
+/* RENDER */
+function render(list) {
+  grid.innerHTML = "";
 
-.creator-text {
-  font-size: 12px;
-  color: #7ddfff;
+  list.forEach((tool, index) => {
+    grid.innerHTML += `
+      <div class="card">
+        <img src="${tool.image}">
+        <h3>${tool.name}</h3>
+        <p>${tool.desc}</p>
+
+        <button class="save-tool-btn" onclick="saveSingleTool(${index})">
+          💾 Save
+        </button>
+      </div>
+    `;
+  });
 }
 
 /* SEARCH */
-#search {
-  width: 90%;
-  max-width: 500px;
-  margin: 20px auto;
-  display: block;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid #00e5ff33;
-  background: #020b14;
-  color: white;
+search.addEventListener("input", () => {
+  const value = search.value.toLowerCase();
+
+  const filtered = tools.filter(t =>
+    t.name.toLowerCase().includes(value)
+  );
+
+  render(filtered);
+});
+
+/* SAVE SINGLE TOOL */
+function saveSingleTool(index) {
+  const tool = tools[index];
+
+  const data = JSON.stringify(tool, null, 2);
+
+  const blob = new Blob([data], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = tool.name.replace(/\s+/g, "-").toLowerCase() + ".json";
+  a.click();
+
+  URL.revokeObjectURL(url);
 }
 
-/* GRID */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  gap: 15px;
-  padding: 20px;
-}
-
-/* CARD */
-.card {
-  background: #06121f;
-  border: 1px solid #00e5ff22;
-  border-radius: 12px;
-  overflow: hidden;
-  transition: 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 15px #00e5ff;
-}
-
-/* IMAGE */
-.card img {
-  width: 100%;
-  height: auto;
-  max-height: 220px;
-  object-fit: contain;
-  background: black;
-}
-
-/* TEXT */
-.card h3 {
-  margin: 10px;
-  color: #00e5ff;
-}
-
-.card p {
-  margin: 0 10px 10px;
-  font-size: 13px;
-}
-
-/* SAVE BUTTON */
-.save-tool-btn {
-  width: 85%;
-  margin: 10px auto 15px;
-  display: block;
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid #00e5ff;
-  background: transparent;
-  color: #00e5ff;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.save-tool-btn:hover {
-  background: #00e5ff;
-  color: black;
-  box-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff;
-    }
+/* INIT */
+render(tools);
