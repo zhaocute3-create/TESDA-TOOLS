@@ -1,1 +1,24 @@
+<script type="module">
+import { db } from "./firebase.js";
+import {
+collection, addDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+window.addTool = async ()=>{
+ let name = nameInput.value;
+ let image = imageInput.value;
+ let desc = descInput.value;
+
+ if(!name || !image || !desc){
+  return alert("Fill all fields!");
+ }
+
+ await addDoc(collection(db,"tools"),{
+  name,
+  image,
+  desc
+ });
+
+ alert("✅ Added Online!");
+};
+</script>
