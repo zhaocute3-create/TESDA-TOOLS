@@ -2,7 +2,7 @@ const tools = [
   {
   name: "Laser Distance",
   desc: "Used for measuring long distances accurately using laser technology",
-  image: "Aparat-de-masurare-la-distanta-laser-0-2---60-m--IP65--Industrial-_1000x1000_1.jpg"
+  image: ""
 },
 {
   name: "Laser Level",
