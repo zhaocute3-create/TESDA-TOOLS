@@ -132,24 +132,31 @@ function render(list) {
   });
 }
 
-function saveImage(imageUrl, name) {
-  fetch(imageUrl)
-    .then(res => res.blob())
-    .then(blob => {
-      const url = URL.createObjectURL(blob);
+const grid = document.getElementById("grid");
+const search = document.getElementById("search");
 
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = name.replace(/\s+/g, "-").toLowerCase() + ".jpg";
-      a.click();
+/* RENDER */
+function render(list) {
+  grid.innerHTML = "";
 
-      URL.revokeObjectURL(url);
-    })
-    .catch(() => {
-      alert("Image cannot be downloaded (check image source)");
-    });
+  list.forEach((tool) => {
+    grid.innerHTML += `
+      <div class="card">
+        <img src="${tool.image}" alt="tool">
+        <h3>${tool.name}</h3>
+        <p>${tool.desc}</p>
+
+        <!-- 🔵 ADD ON BUTTON -->
+        <button class="save-img-btn" onclick="saveImage('${tool.image}', '${tool.name}')">
+          💾 Save Image
+        </button>
+
+      </div>
+    `;
+  });
 }
 
+/* SEARCH */
 search.addEventListener("input", () => {
   const value = search.value.toLowerCase();
 
@@ -160,4 +167,15 @@ search.addEventListener("input", () => {
   render(filtered);
 });
 
+/* 🔵 SAVE IMAGE FUNCTION */
+function saveImage(imageUrl, name) {
+  const a = document.createElement("a");
+  a.href = imageUrl;
+  a.download = name.replace(/\s+/g, "-").toLowerCase() + ".jpg";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+/* INIT */
 render(tools);
