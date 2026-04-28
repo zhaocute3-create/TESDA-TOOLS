@@ -132,6 +132,24 @@ function render(list) {
   });
 }
 
+function saveImage(imageUrl, name) {
+  fetch(imageUrl)
+    .then(res => res.blob())
+    .then(blob => {
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = name.replace(/\s+/g, "-").toLowerCase() + ".jpg";
+      a.click();
+
+      URL.revokeObjectURL(url);
+    })
+    .catch(() => {
+      alert("Image cannot be downloaded (check image source)");
+    });
+}
+
 search.addEventListener("input", () => {
   const value = search.value.toLowerCase();
 
