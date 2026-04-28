@@ -123,6 +123,10 @@ function render(list) {
         <img src="${tool.image}" alt="tool">
         <h3>${tool.name}</h3>
         <p>${tool.desc}</p>
+
+        <button class="save-img-btn" onclick="saveImage('${tool.image}', '${tool.name}')">
+  💾 Save Image
+</button>
       </div>
     `;
   });
