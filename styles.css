@@ -110,3 +110,23 @@ header p {
   color: #7ddfff;
   text-transform: uppercase;
 }
+
+.save-img-btn {
+  width: 85%;
+  margin: 10px auto 15px;
+  display: block;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #00e5ff;
+  background: transparent;
+  color: #00e5ff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.save-img-btn:hover {
+  background: #00e5ff;
+  color: black;
+  box-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff;
+}
