@@ -133,10 +133,12 @@ function render(list) {
 }
 
 function saveImage(imageUrl, name) {
-  const a = document.createElement("a");
-  a.href = imageUrl;
-  a.download = name.replace(/\s+/g, "-").toLowerCase() + ".jpg";
-  a.click();
+  const link = document.createElement("a");
+  link.href = imageUrl;
+  link.download = name.replace(/\s+/g, "-").toLowerCase() + ".jpg";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 
 search.addEventListener("input", () => {
