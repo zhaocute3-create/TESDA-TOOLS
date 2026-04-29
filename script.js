@@ -2,7 +2,7 @@ const tools = [
   {
   name: "Laser Distance",
   desc: "Used for measuring long distances accurately using laser technology",
-  image: "https://imgur.com/zZTPbX8.jpeg"
+  image: "laser-distance.jpg"
 },
 {
   name: "Laser Level",
