@@ -120,12 +120,23 @@ function render(list) {
   list.forEach(tool => {
     grid.innerHTML += `
       <div class="card">
-        <img src="${tool.image}" alt="tool">
+        <img src="${tool.image}" alt="">
         <h3>${tool.name}</h3>
         <p>${tool.desc}</p>
+
+        <button class="save-img-btn" onclick="saveImage('${tool.image}', '${tool.name}')">
+          💾 Save Image
+        </button>
       </div>
     `;
   });
+}
+
+function saveImage(imageUrl, name) {
+  const a = document.createElement("a");
+  a.href = imageUrl;
+  a.download = name.replace(/\s+/g, "-").toLowerCase() + ".jpg";
+  a.click();
 }
 
 search.addEventListener("input", () => {
